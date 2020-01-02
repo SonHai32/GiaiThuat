@@ -1,0 +1,189 @@
+import java.util.Scanner;
+public class bai4{
+    public static void main(String[] args){
+        
+        Scanner input = new Scanner(System.in);
+        LinkedList nodeList = new LinkedList();
+       
+        System.out.println("\n-----------------Menu--------------"); 
+        System.out.println("1.Chen phan tu dau DSLK"); 
+        System.out.println("2.Chen phan tu cuoi DSLK"); 
+        System.out.println("3.Chen phan tu cuoi DSLK"); 
+        System.out.println("4.Chen phan tu cuoi DSLK"); 
+        System.out.println("5.Chen phan tu cuoi DSLK"); 
+        System.out.println("6.Xuat DSLK"); 
+        System.out.println("7.Chen phan tu cuoi DSLK"); 
+        System.out.println("8.Chen phan tu cuoi DSLK"); 
+        System.out.println("9.Chen phan tu cuoi DSLK"); 
+        System.out.println("10.Chen phan tu cuoi DSLK"); 
+        System.out.println("11.Chen phan tu cuoi DSLK"); 
+        System.out.println("12.Chen phan tu cuoi DSLK"); 
+        System.out.println("13.Chen phan tu cuoi DSLK"); 
+        System.out.println("13.Chen phan tu cuoi DSLK"); 
+        System.out.println("14.Chen phan tu cuoi DSLK"); 
+        System.out.println("15.Chen phan tu cuoi DSLK"); 
+        System.out.println("16Chen phan tu cuoi DSLK"); 
+        System.out.println("17.Thoat"); 
+        
+        while(true){
+            System.out.print("Moi Ban Nhap Lua Chon: ");
+            int chon = input.nextInt();
+            switch(chon){
+                case 1 :
+                    nodeList.nhapDauDS();
+                    break;
+                case 2 : 
+                    nodeList.nhapCuoiDS();
+                    break;
+                case 3 :
+                    nodeList.chenNodeVaoViTri();
+                    break;
+                case 6 :
+                    nodeList.DisplayNodes();
+                    break;
+                case 17: 
+                    System.exit(0);
+            }
+        }
+    }
+}
+
+class Nodes{
+    private Nodes link;
+    private int data;
+
+    public Nodes(int data, Nodes link){
+        this.data = data;
+        this.link = link;
+    }
+
+    public void setLink(Nodes link){
+        this.link = link;
+    }
+
+    public Nodes getLink(){
+        return link;
+    }
+
+    public int getData(){
+        return data;
+    }
+}
+
+class LinkedList{
+    private Nodes start;
+    private Nodes end;
+    private int size;
+
+    public LinkedList(){
+        start = null;     
+        end = null;     
+        size = 0;
+    }
+
+    public void InsertAtStart(int data){
+        Nodes node = new Nodes(data, null);
+        
+        size++;
+        if(start == null){
+            start = end = node;
+            return;
+        }
+
+        node.setLink(start);
+        start = node;
+    }
+
+    public void InsertAtEnd(int data){
+        Nodes node = new Nodes(data, null); 
+        size++;
+        if(start == null){
+            start = end = node;
+            return;
+        }
+
+        end.setLink(node);
+        end = node;
+    }
+
+    public void nhapDauDS(){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Ban Muon Tao Bao Nhieu Node: ");
+        int n = input.nextInt();
+        
+        for(int i = 1 ; i <= n ; i++){
+            System.out.print("\nNhap gia tri cho node thu " + i + " : ");
+            int data = input.nextInt();
+            InsertAtStart(data);
+        }
+    }    
+    public void nhapCuoiDS(){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Ban Muon Tao Bao Nhieu Node: ");
+        int n = input.nextInt();
+        
+        for(int i = 1 ; i <= n ; i++){
+            System.out.print("\nNhap gia tri cho node thu " + i + " : ");
+            int data = input.nextInt();
+            InsertAtEnd(data);
+        }
+    } 
+
+    public void chenNodeVaoViTri(){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Nhap vi tri can chen: ");
+        int pos = input.nextInt();
+        System.out.print("Nhap Gia Tri Cho Node: ");
+        int value = input.nextInt();
+
+        InsertAtPos(pos,value);
+
+    }
+
+    public void InsertAtPos(int pos, int data){
+        if(pos == size){
+            InsertAtEnd(data);
+            return;
+        }
+
+        if(pos == 1){
+            InsertAtStart(data);
+            return;
+        }
+    
+        if(pos < 1 || pos > size+1){
+            System.out.println("Vi Tri Chen Khong Hop Le ");
+            return;
+        }
+
+        size++;
+        Nodes node = new Nodes(data,null);
+        Nodes tmp1 = start;
+        pos = pos - 1;
+        
+        for(int i = 2; i < size ; i++ ){
+            Nodes tmp2 = tmp1.getLink();
+            if(i == pos){
+                tmp1.setLink(node);
+                node.setLink(tmp2);
+            }
+            tmp1 = tmp1.getLink();
+        }
+    }
+
+    public void DisplayNodes(){
+        if(start == null){
+            System.out.println("\nDanh Sach Rong");
+            return;
+        }
+        Nodes node = start; 
+        for(int i = 1; i <= size; i++){
+            System.out.print(node.getData() + "->");
+            node = node.getLink();
+        }
+        System.out.println("");
+    }
+
+
+
+}
