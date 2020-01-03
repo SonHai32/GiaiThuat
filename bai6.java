@@ -197,4 +197,17 @@ class BSTTree{
             return SumNodeLeaf(root.left) + SumNodeLeaf(root.right);
     }
 
+    public void CountNodeLeaf(){
+        System.out.println("So La : " + CountNodeLeaf(root));
+    }
+
+    private int CountNodeLeaf(BSTNodes root){
+        if(root == null)
+            return 0;
+        else if (root.left == null && root.right == null)
+            return 1 + CountNodeLeaf(root.left) + CountNodeLeaf(root.right);
+        else 
+            return CountNodeLeaf(root.left) + CountNodeLeaf(root.right);
+    }
+
 }
